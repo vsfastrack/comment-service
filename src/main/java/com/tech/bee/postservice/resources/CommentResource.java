@@ -4,7 +4,6 @@ import com.tech.bee.postservice.annotation.TransactionId;
 import com.tech.bee.postservice.common.ApiResponseDTO;
 import com.tech.bee.postservice.constants.ApiConstants;
 import com.tech.bee.postservice.dto.CommentDTO;
-import com.tech.bee.postservice.dto.PostDTO;
 import com.tech.bee.postservice.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

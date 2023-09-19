@@ -1,12 +1,9 @@
 package com.tech.bee.postservice.mapper;
 
 import com.tech.bee.postservice.dto.CommentDTO;
-import com.tech.bee.postservice.dto.PostDTO;
 import com.tech.bee.postservice.entity.CommentEntity;
-import com.tech.bee.postservice.entity.ReplyEntity;
 import com.tech.bee.postservice.util.AppUtil;
 import com.tech.bee.postservice.vo.CommentVO;
-import com.tech.bee.postservice.vo.ReplyVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -15,7 +12,6 @@ import org.mapstruct.ReportingPolicy;
 public interface CommentMapper {
     @Mapping(source = "content" , target = "content")
     @Mapping(source = "postId" , target = "postID")
-    @Mapping(source = "content" , target = "content")
     @Mapping(ignore = true, target = "replies")
     @Mapping(ignore = true, target = "createdBy")
     @Mapping(expression = "java(toId())" , target="commentId")
@@ -29,7 +25,7 @@ public interface CommentMapper {
     @Mapping(source = "lastModifiedWhen" , target = "lastModifiedWhen")
     CommentVO toVO(CommentEntity commentEntity);
 
-    default String toId(PostDTO postDTO){
+    default String toId(){
         return AppUtil.generateIdentifier("CM");
     }
 

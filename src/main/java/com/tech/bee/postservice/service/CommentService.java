@@ -4,8 +4,6 @@ import com.tech.bee.postservice.common.ErrorDTO;
 import com.tech.bee.postservice.constants.ApiConstants;
 import com.tech.bee.postservice.dto.CommentDTO;
 import com.tech.bee.postservice.entity.CommentEntity;
-import com.tech.bee.postservice.entity.PostEntity;
-import com.tech.bee.postservice.entity.ReplyEntity;
 import com.tech.bee.postservice.exception.BaseCustomException;
 import com.tech.bee.postservice.mapper.CommentMapper;
 import com.tech.bee.postservice.mapper.ReplyMapper;

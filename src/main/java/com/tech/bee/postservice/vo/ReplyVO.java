@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -13,6 +14,7 @@ public class ReplyVO {
     private String content;
     private String replyId;
     private String replyIdentifier;
+    private List<ReplyVO> childReplies;
     private String createdBy;
     private LocalDateTime createdWhen;
     private LocalDateTime lastModifiedWhen;

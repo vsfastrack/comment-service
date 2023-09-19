@@ -28,8 +28,7 @@ public class ReplyEntity {
     @ManyToOne
     @JoinColumn(name = "parent_comment_id")
     private CommentEntity parentComment;
-
-    @OneToMany(mappedBy = "parentReply")
+    @OneToMany(mappedBy = "parentReply" , fetch = FetchType.LAZY)
     private List<ReplyEntity> replies = new ArrayList<>();
     private String createdBy;
     @CreationTimestamp
