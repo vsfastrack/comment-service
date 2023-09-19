@@ -4,6 +4,8 @@ public class ApiConstants {
     public static final class PathConstants{
         public static final String PATH_POST_RESOURCE="/api/v1/posts";
         public static final String PATH_TAG_RESOURCE="/api/v1/tags";
+        public static final String PATH_COMMENT_RESOURCE="/api/v1/comments";
+        public static final String PATH_REPLY_RESOURCE="/api/v1/replies";
     }
     public static final class ErrorCodeConstants{
         public static final String CODE_FIELD_CANNOT_BE_EMPTY="400.001";
@@ -25,6 +27,7 @@ public class ApiConstants {
         public static final String KEY_TAG="tag";
         public static final String KEY_TAG_NAME="tag.name";
         public static final String KEY_POST="post";
+        public static final String KEY_COMMENT="comment";
         public static final String KEY_SERIES="series";
     }
 }
