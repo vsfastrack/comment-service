@@ -1,0 +1,38 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="macvebs (generated)" id="1695193360261-1">
+        <createTable tableName="comments">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="comments_pkey"/>
+            </column>
+            <column name="comment_id" type="VARCHAR(255)"/>
+            <column name="content" type="TEXT"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="created_when" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="identifier" type="VARCHAR(255)"/>
+            <column name="last_modified_when" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="post_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="macvebs (generated)" id="1695193360261-2">
+        <createTable tableName="replies">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="replies_pkey"/>
+            </column>
+            <column name="content" type="TEXT"/>
+            <column name="created_by" type="VARCHAR(255)"/>
+            <column name="created_when" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="identifier" type="VARCHAR(255)"/>
+            <column name="last_modified_when" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="reply_id" type="VARCHAR(255)"/>
+            <column name="parent_comment_id" type="BIGINT"/>
+            <column name="parent_reply_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="macvebs (generated)" id="1695193360261-3">
+        <addForeignKeyConstraint baseColumnNames="parent_reply_id" baseTableName="replies" constraintName="fk6qty9dcd8ubnmveq0ydbmuc3q" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="replies" validate="true"/>
+    </changeSet>
+    <changeSet author="macvebs (generated)" id="1695193360261-4">
+        <addForeignKeyConstraint baseColumnNames="parent_comment_id" baseTableName="replies" constraintName="fklm09ir6rjfadwix5yoyhpxflx" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="comments" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
