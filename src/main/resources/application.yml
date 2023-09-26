@@ -1,8 +1,28 @@
 spring:
   application:
-    name: postService
+    name: commentService
+  datasource:
+    username: postgres
+    url: jdbc:postgresql://localhost:5432/commentDb
+    driverClassName: org.postgresql.Driver
+    password: admin12345
+  jpa:
+    hibernate:
+      ddl-auto: none
 server:
-  port: 8081
+  port: 8082
+  servlet:
+    context-path: /commentService
+keycloak:
+  enabled: true
+  auth-server-url: http://localhost:8080
+  credentials:
+    secret: BZNtImdA8OerDoIvwztjsJOJ6WIFzISu
+  ssl-required: external
+  realm: techbee
+  resource: comment_service_client
+  bearer-only: true
+  use-resource-role-mappings: true
 logbook:
   format:
     style: http
@@ -12,4 +32,8 @@ management:
       exposure:
         include: mappings
   liquibase:
-    changeLog: classpath:/db/changelog/db.changelog-master.xml
+    changeLog: db/changelog/db.changelog-master.xml
+logging:
+  level:
+    org:
+      keycloak: DEBUG
