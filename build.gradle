@@ -2,7 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.12'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-	id "org.liquibase.gradle" version "2.2.0"
+	id "org.liquibase.gradle" version "2.1.1"
 }
 
 group = 'com.tech.bee'
@@ -51,9 +51,7 @@ dependencies {
 	implementation group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.4'
 	implementation 'org.yaml:snakeyaml:1.32'
 	implementation 'org.keycloak:keycloak-spring-boot-starter:21.1.1'
-	implementation 'org.springframework.boot:spring-boot-starter-security:2.7.6'
 	implementation 'org.keycloak:keycloak-spring-security-adapter:21.1.1'
-	implementation 'org.keycloak:keycloak-spring-boot-starter:21.1.1'
 	implementation 'org.springframework.boot:spring-boot-starter-security:2.7.6'
 	implementation 'org.keycloak:keycloak-spring-security-adapter:21.1.1'
 }

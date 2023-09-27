@@ -22,7 +22,7 @@ keycloak:
   realm: techbee
   resource: comment_service_client
   bearer-only: true
-  use-resource-role-mappings: true
+  use-resource-role-mappings: false
 logbook:
   format:
     style: http
@@ -32,7 +32,7 @@ management:
       exposure:
         include: mappings
   liquibase:
-    changeLog: db/changelog/db.changelog-master.xml
+    changeLog: classpath:/db/changelog/db.changelog-master.xml
 logging:
   level:
     org:

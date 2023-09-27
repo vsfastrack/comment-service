@@ -13,7 +13,7 @@ COPY gradle ./gradle
 COPY src ./src
 
 # Build the application
-RUN gradle build --no-daemon
+RUN gradle build -x test --no-daemon
 
 # Use a base image with Java 8 only for runtime
 FROM adoptopenjdk:8-jre-hotspot
@@ -22,10 +22,10 @@ FROM adoptopenjdk:8-jre-hotspot
 WORKDIR /app
 
 # Copy the JAR file from the build stage
-COPY --from=build /app/build/libs/post-service-0.0.1-SNAPSHOT.jar ./app.jar
+COPY --from=build /app/build/libs/comment-service-0.0.1-SNAPSHOT.jar ./app.jar
 
 # Expose the port on which your Spring Boot application listens
-EXPOSE 8080
+EXPOSE 8082
 
 # Set any necessary environment variables
 # ENV VARIABLE_NAME value
