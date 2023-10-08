@@ -27,10 +27,9 @@ logbook:
   format:
     style: http
 management:
-  endpoints:
-    web:
-      exposure:
-        include: mappings
+  endpoint:
+    health:
+      show-details: always
   liquibase:
     changeLog: classpath:/db/changelog/db.changelog-master.xml
 logging:

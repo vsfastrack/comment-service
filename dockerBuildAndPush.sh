@@ -1,4 +1,5 @@
-./gradlew clean build
-docker build -t comment-service:0.0.1-RELEASE .
-docker tag comment-service:0.0.1-RELEASE vebstechbee03/tech-bee:comment-service-0.0.1-RELEASE
-docker push vebstechbee03/tech-bee:comment-service-0.0.1-RELEASE
+docker rmi comment-service:latest
+docker rmi vebstechbee03/tech-bee:comment-service-latest
+docker build -t comment-service:latest .
+docker tag comment-service:latest vebstechbee03/tech-bee:comment-service-latest
+docker push vebstechbee03/tech-bee:comment-service-latest

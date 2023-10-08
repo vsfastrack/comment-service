@@ -57,14 +57,12 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception
     {
         super.configure(http);
-
-
         http.cors().and().csrf().disable().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .sessionAuthenticationStrategy(sessionAuthenticationStrategy())
                 .and()
                 .authorizeRequests()
-//                .antMatchers("/auth/**").permitAll()
+                .antMatchers("/actuator/health").permitAll()
                 .anyRequest().authenticated();
     }
 }

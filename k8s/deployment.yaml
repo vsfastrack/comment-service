@@ -27,7 +27,7 @@ spec:
         name: comment-service
         ports:
         - name: liveness-port
-          containerPort: 8081
+          containerPort: 8082
         resources: #CHANGE
           requests:
             cpu: 100m
@@ -37,14 +37,14 @@ spec:
             memory: 1024Mi #256Mi 
         readinessProbe:
           httpGet:
-            path: /actuator/health
+            path: /commentService/actuator/health
             port: liveness-port
           failureThreshold: 5
           periodSeconds: 10
           initialDelaySeconds: 60
         livenessProbe:
           httpGet:
-            path: /actuator/health
+            path: /commentService/actuator/health
             port: liveness-port
           failureThreshold: 5
           periodSeconds: 10
