@@ -47,7 +47,7 @@ jobs:
           gcloud container clusters get-credentials techbee-cluster --zone us-central1-c
           kubectl config use-context gke_banded-pad-397603_us-central1-c_techbee-cluster
 
-      - name: Delete existing deployment
+      - name: Delete existing deployment of comment service
         run: kubectl delete deployment comment-service --ignore-not-found=true
 
       - name: k8s deployment
