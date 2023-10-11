@@ -13,7 +13,7 @@ keycloak:
   enabled: true
   auth-server-url: http://auth-server:8080
   credentials:
-    secret: sHdcTizJl7Irii1RD2Gvp6cJWzq2Ii65
+    secret: hUeVtun1XSJaRYm95i0tIxXFyVtCJPxI
   ssl-required: external
   realm: techbee
   resource: comment_service_client
