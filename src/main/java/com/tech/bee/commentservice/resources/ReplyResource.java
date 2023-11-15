@@ -18,7 +18,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = ApiConstants.PathConstants.PATH_REPLY_RESOURCE)
-@Secured({ApiConstants.RoleConstants.ROLE_AUTHOR ,ApiConstants.RoleConstants.ROLE_USER })
 public class ReplyResource {
 
     private final ReplyService replyService;

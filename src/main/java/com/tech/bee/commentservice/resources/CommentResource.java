@@ -11,10 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(value = ApiConstants.PathConstants.PATH_COMMENT_RESOURCE)
-@Secured({ApiConstants.RoleConstants.ROLE_AUTHOR ,ApiConstants.RoleConstants.ROLE_USER })
 public class CommentResource {
 
     private final CommentService commentService;
@@ -27,9 +28,15 @@ public class CommentResource {
     }
 
     @TransactionId
-    @GetMapping("/{commentIdentifier}")
+    @GetMapping("/{commentIdentifier}/details")
     public ResponseEntity<ApiResponseDTO> findCommentDetails(@PathVariable("commentIdentifier") final String commentIdentifier){
         return new ResponseEntity<>(ApiResponseDTO.builder().content(commentService.getCommentDetails(commentIdentifier)).build(), HttpStatus.OK);
+    }
+
+    @TransactionId
+    @GetMapping("/{postIdentifier}")
+    public ResponseEntity<ApiResponseDTO> getCommentsByPostId(@PathVariable("postIdentifier") final String postIdentifier){
+        return new ResponseEntity<>(ApiResponseDTO.builder().content(commentService.getCommentsByPostIdentifier(postIdentifier)).build(), HttpStatus.OK);
     }
 
     @TransactionId

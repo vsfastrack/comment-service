@@ -22,6 +22,7 @@ import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,7 +46,6 @@ public class CommentService {
         return commentEntity.getIdentifier();
     }
 
-    @Transactional
     public CommentVO getCommentDetails(String commentIdentifier){
         CommentEntity comment = commentRepository.findByIdentifier(commentIdentifier).orElseThrow(() -> BaseCustomException.builder().
                 errors(Collections.singletonList(AppUtil.buildResourceNotFoundError(ApiConstants.KeyConstants.KEY_COMMENT))).httpStatus(HttpStatus.NOT_FOUND)
@@ -56,6 +56,13 @@ public class CommentService {
         CommentVO commentVO = commentMapper.toVO(comment);
         commentVO.setReplies(replies);
         return commentVO;
+    }
+
+    public List<CommentVO> getCommentsByPostIdentifier(String postIdentifier){
+        List<CommentEntity> comments = commentRepository.findAllByPostIdOrderByCreatedWhenDesc(postIdentifier).orElseThrow(() -> BaseCustomException.builder().
+                errors(Collections.singletonList(AppUtil.buildResourceNotFoundError(ApiConstants.KeyConstants.KEY_COMMENT))).httpStatus(HttpStatus.NOT_FOUND)
+                .build());
+        return comments.stream().map(this::mapToVO).collect(Collectors.toList());
     }
 
     @Transactional
@@ -78,6 +85,15 @@ public class CommentService {
         if(CollectionUtils.isNotEmpty(validationErrors))
             throw BaseCustomException.builder().errors(validationErrors).httpStatus(HttpStatus.FORBIDDEN).build();
         commentRepository.delete(comment);
+    }
+
+    private CommentVO mapToVO(CommentEntity commentEntity){
+        List<ReplyVO> replies = commentEntity.getReplies().stream()
+                .map(replyMapper::toVO)
+                .collect(Collectors.toList());
+        CommentVO commentVO = commentMapper.toVO(commentEntity);
+        commentVO.setReplies(replies);
+        return commentVO;
     }
 
 }
