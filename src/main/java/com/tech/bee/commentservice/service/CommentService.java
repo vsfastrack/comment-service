@@ -4,6 +4,7 @@ import com.tech.bee.commentservice.common.ErrorDTO;
 import com.tech.bee.commentservice.constants.ApiConstants;
 import com.tech.bee.commentservice.dto.CommentDTO;
 import com.tech.bee.commentservice.entity.CommentEntity;
+import com.tech.bee.commentservice.entity.ReplyEntity;
 import com.tech.bee.commentservice.exception.BaseCustomException;
 import com.tech.bee.commentservice.mapper.CommentMapper;
 import com.tech.bee.commentservice.mapper.ReplyMapper;
@@ -15,14 +16,12 @@ import com.tech.bee.commentservice.vo.ReplyVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -92,8 +91,24 @@ public class CommentService {
                 .map(replyMapper::toVO)
                 .collect(Collectors.toList());
         CommentVO commentVO = commentMapper.toVO(commentEntity);
+        commentVO.setCommentOwner(StringUtils.isNotEmpty(securityService.getCurrentLoggedInUser())
+                && securityService.getCurrentLoggedInUser().equals(commentEntity.getCreatedBy()));
         commentVO.setReplies(replies);
         return commentVO;
+    }
+
+    private ReplyVO mapToReplyVO(ReplyEntity replyEntity){
+        return replyMapper.toVO(replyEntity);
+    }
+    public List<ReplyVO> getRepliesForComment(String commentIdentifier){
+        CommentEntity commentEntity = commentRepository.findByIdentifier(commentIdentifier).orElseThrow(() -> BaseCustomException.builder().
+                errors(Collections.singletonList(AppUtil.buildResourceNotFoundError(ApiConstants.KeyConstants.KEY_REPLY)))
+                .httpStatus(HttpStatus.NOT_FOUND).build());
+        List<ReplyEntity> replyEntities = commentEntity.getReplies();
+        List<ReplyVO> replies = replyEntities.stream().map(this::mapToReplyVO).sorted(Comparator.comparing(ReplyVO::getCreatedWhen)).collect(Collectors.toList());
+        replies.forEach(reply -> reply.setOwner(
+                securityService.getCurrentLoggedInUser().equals(reply.getCreatedBy())));
+        return replies;
     }
 
 }

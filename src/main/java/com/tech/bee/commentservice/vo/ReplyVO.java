@@ -16,6 +16,7 @@ public class ReplyVO {
     private String identifier;
     private List<ReplyVO> childReplies;
     private String createdBy;
+    private Boolean owner;
     private LocalDateTime createdWhen;
     private LocalDateTime lastModifiedWhen;
 }

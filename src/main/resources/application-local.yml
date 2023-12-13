@@ -1,18 +1,18 @@
 spring:
   datasource:
-    username: postgres
-    url: jdbc:postgresql://localhost:5432/commentDb
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/commentDb}
     driverClassName: org.postgresql.Driver
-    password: admin12345
+    password: ${SPRING_DATASOURCE_PASSWORD:admin12345}
   liquibase:
     changeLog: db/changelog/db.changelog-master.xml
 keycloak:
   enabled: true
-  auth-server-url: http://localhost:8080
+  auth-server-url: ${KEYCLOAK_URL:http://localhost:8080}
   credentials:
-    secret: BZNtImdA8OerDoIvwztjsJOJ6WIFzISu
+    secret: ${KEYCLOAK_CLIENT_SECRET:S8cQ9J4fnQ4E89YUR9WVanJGPwXJwCDc}
   ssl-required: external
-  realm: techbee
+  realm: ${KEYCLOAK_REALM:techbee}
   resource: comment_service_client
   bearer-only: true
   use-resource-role-mappings: false

@@ -5,6 +5,7 @@ import com.tech.bee.commentservice.common.ApiResponseDTO;
 import com.tech.bee.commentservice.constants.ApiConstants;
 import com.tech.bee.commentservice.dto.CommentDTO;
 import com.tech.bee.commentservice.service.CommentService;
+import com.tech.bee.commentservice.vo.ReplyVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -28,13 +30,13 @@ public class CommentResource {
     }
 
     @TransactionId
-    @GetMapping("/{commentIdentifier}/details")
+    @GetMapping("/{commentIdentifier}")
     public ResponseEntity<ApiResponseDTO> findCommentDetails(@PathVariable("commentIdentifier") final String commentIdentifier){
         return new ResponseEntity<>(ApiResponseDTO.builder().content(commentService.getCommentDetails(commentIdentifier)).build(), HttpStatus.OK);
     }
 
     @TransactionId
-    @GetMapping("/{postIdentifier}")
+    @GetMapping("/{postIdentifier}/details")
     public ResponseEntity<ApiResponseDTO> getCommentsByPostId(@PathVariable("postIdentifier") final String postIdentifier){
         return new ResponseEntity<>(ApiResponseDTO.builder().content(commentService.getCommentsByPostIdentifier(postIdentifier)).build(), HttpStatus.OK);
     }
@@ -52,6 +54,14 @@ public class CommentResource {
     public ResponseEntity<ApiResponseDTO> delete(@PathVariable("commentIdentifier") final String commentIdentifier){
         commentService.delete(commentIdentifier);
         return new ResponseEntity<>(ApiResponseDTO.builder().build(), HttpStatus.NO_CONTENT);
+    }
+
+    @TransactionId
+    @GetMapping(value="/{commentId}/replies")
+    public ResponseEntity<ApiResponseDTO> getRepliesByCommentId(@PathVariable("commentId")
+                                                                final String commentId){
+        List<ReplyVO> replies = commentService.getRepliesForComment(commentId);
+        return new ResponseEntity<>(ApiResponseDTO.builder().content(replies).build() , HttpStatus.OK);
     }
 
 }

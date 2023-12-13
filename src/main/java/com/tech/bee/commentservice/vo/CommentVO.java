@@ -19,4 +19,5 @@ public class CommentVO {
     private String createdBy;
     private LocalDateTime createdWhen;
     private LocalDateTime lastModifiedWhen;
+    private boolean commentOwner;
 }
